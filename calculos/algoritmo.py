@@ -6,6 +6,7 @@ from datetime import datetime
 with open("MOCK_DATA.json", "r", encoding="utf-8") as file:
     data = json.load(file)  # Cargar directamente el JSON desde el archivo
 persona = 6
+caso = 1
 
 due_date_str = data[persona].get("due_date", "No disponible")
 actual_date = datetime.now().strftime("%d/%m/%Y")
@@ -33,21 +34,24 @@ print("Cuotas", cuotas)
 valor_c = deuda/cuotas
 print("Valor por cuota:", valor_c)
 
-# Caso 1 extension plazo
-nueva_coutas = cuotas + 6
-nuevo_valor_c = deuda/nueva_coutas
-    # Cambiar fecha de pago en la bd
-
-# Caso 2 Disminucion de plazo
-if(cuotas <= 2):
-    print("Ya estas a punto de pagar tu credito!! si quieres cancelarlo aun mas rapido entra a este link: aqui iria un link")
-else:
-    nueva_coutas = cuotas - 2
+if(caso == 1):
+    # Caso 1 extension plazo
+    nueva_coutas = cuotas + 6
     nuevo_valor_c = deuda/nueva_coutas
+    # Cambiar fecha de pago en la bd
+elif(caso == 2):
+        # Caso 2 Disminucion de plazo
+    if(cuotas <= 2):
+        print("Ya estas a punto de pagar tu credito!! si quieres cancelarlo aun mas rapido entra a este link: aqui iria un link")
+    else:
+        nueva_coutas = cuotas - 2
+        nuevo_valor_c = deuda/nueva_coutas
+else:
+    # Caso 3 Periodo de gracia
+    if(difference <= -3):
+        nueva_fecha=difference + 3
 
-# Caso 3 Periodo de gracia
-if(difference <= -3):
-    nueva_fecha=difference + 3
+
 
 
 print("Fecha actual:", actual_date)
